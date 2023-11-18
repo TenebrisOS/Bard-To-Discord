@@ -16,7 +16,11 @@ PREFIX = "."
 bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 
 def CreateEmbed(question, answer):
+    if len(question) > 200:
+        question=question[:200] + '...'
     mbd = discord.Embed(title=str(question) + ', Asking Bard')
+    if len(answer) > 1000:
+        answer=answer[:1000] + '...'
     mbd.add_field(name = 'Answer', value = answer)
     return mbd
 

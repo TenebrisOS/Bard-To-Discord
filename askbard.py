@@ -1,8 +1,10 @@
 from bardapi import Bard
 from playsound import playsound
 import os
-
-token = 'dQh0WrAryeo0cmbKzwdzYejNTahjZe-XpnXBwGORVZnvoeL_H-q23xetlgptf77FTAcPyQ.'
+import json
+with open('config.json') as f:
+   data = json.load(f)
+token = data['GOOGLE_TOKEN']
 def AskBard(question):
     bard = Bard(token=token)
     # textinput = input("Ask Bard: ")
