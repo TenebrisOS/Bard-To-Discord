@@ -15,13 +15,31 @@ client = discord.Client(intents=intents)
 PREFIX = "."
 bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 
+
+def CorrectAnswer(mbd, answer):
+    maxlenanswer=1000
+    mbd.add_field(name = 'Answer Len', value = len(answer))
+    if len(answer) < maxlenanswer:
+        mbd.add_field(name = 'Answer', value = answer)
+    else:
+        if len(answer) < 2000 :
+            answer1=answer[:maxlenanswer] + '...'
+            answer2=answer[maxlenanswer:]
+            mbd.add_field(name = 'Part1', value = answer1)
+            mbd.add_field(name = 'Part2', value = answer2)
+        else:
+            mbd.add_field(name = 'Error', value = 'The answer is too long.. :(')
+
+def CorrectQuestion(question):
+    maxlenquestion=120
+    if len(question) > maxlenquestion:
+        question=question[:maxlenquestion] + '...'
+    return question
+
 def CreateEmbed(question, answer):
-    if len(question) > 200:
-        question=question[:200] + '...'
+    question=CorrectQuestion(question=question)
     mbd = discord.Embed(title=str(question) + ', Asking Bard')
-    if len(answer) > 1000:
-        answer=answer[:1000] + '...'
-    mbd.add_field(name = 'Answer', value = answer)
+    CorrectAnswer(mbd=mbd, answer=answer)
     return mbd
 
 
